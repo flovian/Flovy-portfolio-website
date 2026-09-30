@@ -1,0 +1,41 @@
+/*
+  Monsterat is not hosted on Google Fonts or Fontshare, so the files are loaded
+  from /public/fonts. Drop the .woff2 files there (see public/fonts/README.txt)
+  and the family below becomes active. Poppins is the fallback so the layout
+  still looks right before the real files are added.
+
+  Only the weights actually used on the site are declared: 400 (body),
+  500 (font-medium), 600 (headings), 700 (spare).
+*/
+
+@font-face {
+  font-family: 'Monsterat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Monsterat-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Monsterat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Monsterat-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Monsterat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Monsterat-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Monsterat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Monsterat-Bold.woff2') format('woff2');
+}
