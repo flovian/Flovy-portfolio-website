@@ -20,7 +20,6 @@ export const profile = {
   aboutImage: '/about.jpeg',
   links: {
     linkedin: 'https://www.linkedin.com/in/flovian-owiti/',
-    // note: GitHub given as https://github/flovian, corrected to a real URL
     github: 'https://github.com/flovian',
     devto: 'https://dev.to/atieno_thedvev',
   },
