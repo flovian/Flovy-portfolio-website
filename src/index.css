@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Flovian — design system
+   Warm ivory + gold, editorial minimal. Tokens live in tailwind.config.js.
+   ========================================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* Live pointer position, driven by rAF in usePointerGlow */
+    --px: 50%;
+    --py: 50%;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-gold-wash text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-canvas;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-semibold tracking-tightest text-ink;
+    font-weight: 600;
+  }
+
+  /* Theme the scrollbar so it doesn't break the palette */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f4f0e7;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d6ccb7;
+    border-radius: 9999px;
+    border: 2px solid #f4f0e7;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b9853e;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[0.68rem] font-medium uppercase tracking-eyebrow text-gold;
+  }
+
+  .card {
+    @apply rounded-card border border-line bg-card transition-all duration-300 ease-smooth;
+  }
+
+  .card-lift {
+    @apply hover:-translate-y-1 hover:border-line-strong hover:bg-card-hover hover:shadow-lift;
+  }
+
+  .btn {
+    @apply relative inline-flex select-none items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-medium;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  /* Sheen that sweeps across primary buttons on hover */
+  .btn-primary {
+    @apply btn bg-ink text-canvas;
+  }
+  .btn-primary::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      rgba(240, 228, 206, 0.45) 50%,
+      transparent 80%
+    );
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-primary:hover::after {
+    @apply translate-x-full;
+  }
+  .btn-primary:hover {
+    @apply bg-gold shadow-lift;
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+
+  .btn-ghost {
+    @apply btn border border-line-strong bg-transparent text-ink;
+  }
+  .btn-ghost:hover {
+    @apply border-ink bg-card;
+  }
+  .btn-ghost:active {
+    transform: scale(0.97);
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-300 after:ease-smooth hover:after:w-full;
+  }
+
+  .rule {
+    @apply mb-6 block h-px w-10 bg-gold;
+  }
+
+  /* ---- Scroll reveal ---- */
+  .reveal {
+    @apply opacity-0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    @apply opacity-100;
+    transform: translateY(0);
+  }
+
+  /* ---- Cursor-following highlight for cards ---- */
+  .spotlight {
+    position: relative;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      22rem circle at var(--px, 50%) var(--py, 50%),
+      rgba(185, 133, 62, 0.11),
+      transparent 62%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* ---- Gradient text for emphasised words ---- */
+  .text-gradient-gold {
+    background: linear-gradient(100deg, #b9853e 0%, #d8b078 45%, #b9853e 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+@layer utilities {
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .blob {
+    @apply pointer-events-none absolute rounded-full blur-3xl;
+  }
+
+  /* Subtle paper grain over the whole page */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hairline-top {
+    box-shadow: inset 0 1px 0 0 #e7e0d2;
+  }
+}
+
+@layer components {
+  /* Thin animated gold line pinned under the header on scroll */
+  .scroll-progress {
+    @apply h-px w-full origin-left bg-gold;
+    transform: scaleX(0);
+  }
+}
